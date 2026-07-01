@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"></head>
+<body>
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <h1><i class="fas fa-user-plus"></i> <span th:text="${pageTitle}">Employee Form</span></h1>
+        <div class="header-actions">
+            <a th:href="@{/employees}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div th:if="${error}" class="alert alert-danger">
+        <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
+    </div>
+
+    <!-- Form -->
+    <div class="form-container">
+        <form th:action="${action}" th:object="${employee}" method="post" class="employee-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">
+                        <i class="fas fa-user"></i> First Name <span class="required">*</span>
+                    </label>
+                    <input type="text" id="firstName" th:field="*{firstName}"
+                           class="form-control" placeholder="Enter first name">
+                    <span th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}" class="form-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">
+                        <i class="fas fa-user"></i> Last Name <span class="required">*</span>
+                    </label>
+                    <input type="text" id="lastName" th:field="*{lastName}"
+                           class="form-control" placeholder="Enter last name">
+                    <span th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}" class="form-error"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email <span class="required">*</span>
+                    </label>
+                    <input type="email" id="email" th:field="*{email}"
+                           class="form-control" placeholder="Enter email address">
+                    <span th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}" class="form-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i> Phone
+                    </label>
+                    <input type="text" id="phone" th:field="*{phone}"
+                           class="form-control" placeholder="Enter phone number">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="department">
+                        <i class="fas fa-building"></i> Department <span class="required">*</span>
+                    </label>
+                    <select id="department" th:field="*{department}" class="form-control">
+                        <option value="">Select Department</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="IT">IT</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('department')}"
+                          th:errors="*{department}" class="form-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="position">
+                        <i class="fas fa-briefcase"></i> Position
+                    </label>
+                    <input type="text" id="position" th:field="*{position}"
+                           class="form-control" placeholder="Enter position">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="salary">
+                        <i class="fas fa-dollar-sign"></i> Salary <span class="required">*</span>
+                    </label>
+                    <input type="number" id="salary" th:field="*{salary}"
+                           class="form-control" placeholder="Enter salary" step="0.01">
+                    <span th:if="${#fields.hasErrors('salary')}"
+                          th:errors="*{salary}" class="form-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="hireDate">
+                        <i class="fas fa-calendar"></i> Hire Date
+                    </label>
+                    <input type="date" id="hireDate" th:field="*{hireDate}"
+                           class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">
+                    <i class="fas fa-home"></i> Address
+                </label>
+                <textarea id="address" th:field="*{address}"
+                          class="form-control" rows="3" placeholder="Enter address"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i>
+                    <span th:text="${isEdit} ? 'Update Employee' : 'Create Employee'"></span>
+                </button>
+                <a th:href="@{/employees}" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>
